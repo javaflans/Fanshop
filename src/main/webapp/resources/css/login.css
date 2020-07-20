@@ -1,0 +1,209 @@
+.main {
+	background: #fdebc7;
+	width: 800px;
+	height: 400px;
+	top: 10px;
+	bottom: 10px;
+	left: 0;
+	right: 50%;
+	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	border-radius: 0px 0px 15px 15px;
+	margin: 0 auto;
+}
+
+.message {
+	font-size: 12px;
+	color: red;
+	text-align: center;
+	vertical-align: top;
+	height: 15px;
+}
+
+.reg {
+	padding-right: 7%;
+	text-align: right;
+	font-size: 13px;
+}
+
+.reg a {
+	font-family: Microsoft JhengHei;
+	color: #ff8040;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.title {
+	width: 100%;
+	height: 122px;
+	margin-bottom: 70px;
+}
+
+.submit {
+	width: 70px;
+	height: 90px;
+	margin-left: -20px;
+	outline:none
+}
+
+#loginForm table {
+	width: 450px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+html,body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: #34495e;
+	font-family: Microsoft JhengHei;
+}
+
+#loginForm input:not(.submit) {
+	padding-left: 5px;
+	height: 40px;
+	font-size: 22px;
+	box-shadow: 1px 1px 2px 2px rgba(10%, 10%, 20%, 0.2) inset;
+	border-radius: 6px;
+	outline:none
+}
+
+label {
+	font-size: 16px;
+}
+
+.label {
+	text-align: right;
+}
+
+.k-button {
+	border-radius: 0;
+}
+
+.k-primary {
+	background: #ff8000;
+	border: none;
+}
+
+.k-dialog .k-button {
+	height: 50px;
+}
+
+#dialog {
+	padding: 5px;
+}
+
+#registForm input {
+	width: 220px;
+}
+
+#registForm  input:not([type='checkbox']), .k-content select {
+	height: 25px;
+	border: none;
+	border-bottom: 1px solid #808080;
+	border-radius: 0;
+	outline: none;
+	font-size: 15px;
+	margin: 0;
+	padding: 0;
+}
+
+#registForm  input[type='email'], .k-content input[type='tel'] , .k-content input[type='text'] {
+	height: 25px;
+}
+
+#registForm  .labelSpace {
+	width: 200px;
+	text-align: left;
+	color: #808080;
+}
+
+#registForm table {
+	width: 100%;
+}
+
+#registForm td {
+	width: 50%;
+	height: 50px;
+	margin: 0;
+	padding: 0;
+}
+
+#registForm .k-invalid-msg {
+	margin: 1px;
+	height: 17px;
+	color: #fff;
+	border: none;
+	border-radius: 1;
+	padding: 2px;
+	background: #feccb1; /* Old browsers */
+	background: -moz-linear-gradient(top, #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feccb1', endColorstr='#fb955e',GradientType=0 ); /* IE6-9 */
+}
+
+#registForm .status {
+	font-size: 15px;
+}
+
+.valid {
+	color: #00ff00;
+	font-weight: bold;
+}
+
+.invalid {
+	color: red;
+	font-weight: bold;
+}
+
+#registForm .zipCode{
+	height:25px;
+}
+
+#registForm fieldset {
+	margin-bottom: 5px;
+}
+
+#registForm select {
+	margin-bottom: 5px;
+}
+
+#registForm #account {
+	border: 1px solid #ff8040;
+	color: #ff8040;
+	font-weight: bolder;
+}
+
+#registForm #dataInfo {
+	border: 1px solid #0080ff;
+	color: #0080ff;
+	font-weight: bolder;
+}
+
+#registForm #zipCode{
+	font-size: 20px;
+	color: #0080ff;
+	font-weight: bolder;
+	border: none;
+}
+
+#forget {
+	color: #ff0080;
+}
+
+#forgetForm #userMail {
+	width: 500px;
+	height: 40px;
+	font-size: 25px;
+}
+
+#forgetForm .labelSpace{
+	margin-top: 50px;
+}

@@ -1,0 +1,33 @@
+.k-grid .k-state-selected {
+	background-color: #31f7dc !important;
+	color: #009;
+}
+
+#grid {
+	width: 25%;
+	height: 480px;
+	margin-left: 3%;
+}
+
+.k-grid-pager {
+	font-size: 5px;
+}
+
+.k-grid .k-header {
+	font-size: 10px;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.k-chart {
+	background: left 33px bottom 27px no-repeat url('../data/map.png');
+	background-size: 94%;
+}
+
+.dataInfo td {
+	border: 1px solid #eeeeee;
+	padding: 5px;
+	font-size: 32px;
+}

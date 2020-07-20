@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="fanshop">
+		<class>com.paralucent.model.KolShare</class>
+		<class>com.paralucent.model.Member</class>
+		<class>com.paralucent.model.Menus</class>
+		<class>com.paralucent.model.Role</class>
+		<class>com.paralucent.model.RoleMember</class>
+		<class>com.paralucent.model.RoleMemberPK</class>
+		<class>com.paralucent.model.RoleMenu</class>
+		<class>com.paralucent.model.Status</class>
+		<class>com.paralucent.model.VerifyAccount</class>
+		<class>com.paralucent.model.WwwShop</class>
+		<class>com.paralucent.model.Level</class>
+		<class>com.paralucent.model.KolData</class>
+		<class>com.paralucent.model.Kolprofitexpdata</class>
+		<class>com.paralucent.model.KolDatasChecked</class>
+		<class>com.paralucent.model.WwwOrder</class>
+	</persistence-unit>
+</persistence>

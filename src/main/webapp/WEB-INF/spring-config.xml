@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd  
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd  
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:component-scan base-package="com.paralucent.controller" />
+
+
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/libs/**" location="/libs/" />
+	<mvc:annotation-driven />
+ 
+
+	<context:property-placeholder location="classpath:database.properties" />
+
+	<bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+		<property name="dbType" value="mysql" />
+	</bean>
+
+	<!-- c3po connection pool setting -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close"> 
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="0" />
+		<property name="minIdle" value="0" />
+		<property name="maxActive" value="55" />
+
+		<!-- 配置获取连接等待超时的时间，单位是毫秒 -->
+		<property name="maxWait" value="5000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="100" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="10000" />
+
+		<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="200" />
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="wall,log4j,stat" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+	
+	
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.paralucent.model" />
+		<!-- backup -->
+		<!-- <property name="annotatedClasses"> <list> <value>com.paralucent.domain.Employee</value> 
+			</list> </property> -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean id="dataDaoImpl" class="com.paralucent.dao.DataDaoImpl" />
+	<bean id="verifyDaoImpl" class="com.paralucent.dao.VerifyDaoImpl" />
+	<bean id="dataServiceImpl" class="com.paralucent.services.DataServiceImpl" />
+	<bean id="verifyServiceImpl" class="com.paralucent.services.VerifyServiceImpl" />
+	<bean id="SessionCounterListener" class="com.paralucent.io.servlet.SessionCounterListener" />
+</beans>  

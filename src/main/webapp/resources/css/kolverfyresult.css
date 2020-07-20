@@ -1,0 +1,67 @@
+.main {
+	background: #fdebc7;
+	position: relative;
+	top:20%;
+	left:0;
+	width: 800px;
+	height: 400px;
+	right: 50%;
+	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+	border-radius: 15px;
+	margin: 0 auto;
+}
+
+.title {
+	background: #ffbe23;
+	width: 100%;
+	height: 70px;
+}
+
+.logo {
+	background-image: url("http://www.fanshopping.com.tw//uploads/logo/home/logo.png");
+	background-repeat: no-repeat;
+	height: 120px;
+	background-size: auto 110px;
+}
+
+h1 {
+	font-family: Microsoft JhengHei;
+	padding: 2%;
+	width: 96%;
+	border-bottom: 1px solid #000;
+	background: #adadad;
+}
+
+.msg {
+	font-family: Microsoft JhengHei;
+	font-size: 23px;
+	width: 47%;
+	position: relative;
+	top: 30%;
+	left: 0;
+	margin: 0 auto;
+}
+
+.href{
+	position: relative;
+	top: 41%;
+	left: 0;
+	margin: 0 auto;
+	width: 100px;
+	height: 50px;
+}
+
+.href input{
+	font-family: Microsoft JhengHei;
+	font-size: 20px;
+	width: 100px;
+	height: 50px;
+	color: #fff;
+	border: none;
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+	background: #f0a800;	
+}
