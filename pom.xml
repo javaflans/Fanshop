@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.paralucent</groupId>
-	<artifactId>fanshop</artifactId>
+	<artifactId>Fanshop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Fanshop</name>

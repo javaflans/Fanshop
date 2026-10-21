@@ -57,9 +57,9 @@ public class StandardController
 	extends
 	BaseController {
 
-    private final static String DOMAIN_URL = "http://www.fanshopping.com.tw:8080/fanshop";
-    // private final static String DOMAIN_URL = "http://localhost:8080/fanshop";
-    // private final static String DOMAIN_URL = "http://www.paralucent.com.tw:8081/fanshop";
+    private final static String DOMAIN_URL = "http://www.fanshopping.com.tw:8080/Fanshop";
+    // private final static String DOMAIN_URL = "http://localhost:8080/Fanshop";
+    // private final static String DOMAIN_URL = "http://www.paralucent.com.tw:8081/Fanshop";
     @Autowired
     private DataService dataService;
     @Autowired

@@ -1,5 +1,5 @@
-# fanshop
-spring mvc project by fanshop
+# Fanshop
+spring mvc project by Fanshop
 
 ## history
 - A shop background platform on 2018.
