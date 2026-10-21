@@ -11,7 +11,7 @@
   若整個 D:\Development\tools\pgsql 被刪除（含執行檔），需先：
     1) 重新下載免安裝版 PostgreSQL 解壓到該路徑
     2) initdb 初始化叢集並設定超級使用者，例如：
-       & "<PgHome>\bin\initdb.exe" -D "<PgHome>\data" -U "javaflans@gmail.com" --pwfile=<密碼檔> -A scram-sha-256 --encoding=UTF8 --locale=C
+       & "<PgHome>\bin\initdb.exe" -D "<PgHome>\data" -U "<超級使用者>" --pwfile=<密碼檔> -A scram-sha-256 --encoding=UTF8 --locale=C
        （--pwfile 指向只含一行密碼的純文字檔）
     3) 啟動伺服器後再執行本腳本
 
@@ -21,7 +21,7 @@
 #>
 param(
     [string]$PgHome    = 'D:\Development\tools\pgsql',
-    [string]$SuperUser = 'javaflans@gmail.com',
+    [string]$SuperUser = $(if($env:PGSUPERUSER){$env:PGSUPERUSER}else{'postgres'}),
     [string]$DbHost    = 'localhost',
     [int]   $Port      = 5432
 )

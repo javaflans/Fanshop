@@ -1,6 +1,8 @@
 # Fanshop
 spring mvc project by Fanshop
 
+> **狀態：封存（Archived）。** 2018 年的獨立開發專案，2026 年現代化遷移至 Spring Boot 4 / Java 25 / PostgreSQL，僅作為作品與技術參考，不再維護，請勿用於正式環境。
+
 ## history
 - A shop background platform on 2018.
 
