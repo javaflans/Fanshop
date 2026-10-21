@@ -1,6 +1,7 @@
 package com.paralucent.dao;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class BaseDao {
     Logger log;
 
     protected void genLogger() {
-	log = Logger.getLogger(BaseController.class.getClass().getName());
+	log = LoggerFactory.getLogger(BaseController.class.getClass().getName());
     }
 
     protected void clearSession(Session session) {

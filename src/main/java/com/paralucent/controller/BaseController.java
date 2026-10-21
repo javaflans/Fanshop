@@ -5,14 +5,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.paralucent.model.Member;
@@ -31,6 +33,14 @@ public class BaseController {
     public final static String LOGIN_TYPE = "login";
     public final static String LOGOUT_TYPE = "logout";
     protected HttpSession session;
+    @Value("${mail.smtp.host}")
+    private String mailHost;
+    @Value("${mail.smtp.port}")
+    private String mailPort;
+    @Value("${mail.username}")
+    private String mailUsername;
+    @Value("${mail.password}")
+    private String mailPassword;
 
 
     protected void clearSession(HttpServletRequest req,HttpSession session) {
@@ -79,16 +89,14 @@ public class BaseController {
     }
 
     protected Session getMailSession() {
-	// final String username = "paralucent.service@gmail.com";
-	// final String password = "3I7UWT9D#";
-	final String username = "chiahu.wang@gmail.com";
-	final String password = "ivan1107";
+	final String username = mailUsername;
+	final String password = mailPassword;
 	Properties props = new Properties();
 	props.put("mail.smtp.auth", "true");
 	props.put("mail.smtp.starttls.enable", "true");
-	props.put("mail.smtp.host", "smtp.gmail.com");
-	props.put("mail.smtp.port", "587");
-	Session mailSession = Session.getInstance(props, new javax.mail.Authenticator() {
+	props.put("mail.smtp.host", mailHost);
+	props.put("mail.smtp.port", mailPort);
+	Session mailSession = Session.getInstance(props, new jakarta.mail.Authenticator() {
 
 	    protected PasswordAuthentication getPasswordAuthentication() {
 		return new PasswordAuthentication(username, password);
@@ -131,6 +139,6 @@ public class BaseController {
     }
 
     protected void genLogger() {
-	log = Logger.getLogger(BaseController.class.getClass().getName());
+	log = LoggerFactory.getLogger(BaseController.class.getClass().getName());
     }
 }

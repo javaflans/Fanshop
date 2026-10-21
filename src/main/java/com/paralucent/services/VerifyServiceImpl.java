@@ -2,12 +2,15 @@ package com.paralucent.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.paralucent.model.Level;
 import com.paralucent.model.Member;
 import com.paralucent.model.RoleMember;
 import com.paralucent.model.Status;
 import com.paralucent.model.VerifyAccount;
 
+@Service
 public class VerifyServiceImpl
 	extends
 	BaseService

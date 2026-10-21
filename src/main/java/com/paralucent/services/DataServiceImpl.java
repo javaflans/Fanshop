@@ -3,6 +3,8 @@ package com.paralucent.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.paralucent.model.KolData;
 import com.paralucent.model.KolDatasChecked;
 import com.paralucent.model.KolShare;
@@ -14,6 +16,7 @@ import com.paralucent.model.Role;
 import com.paralucent.model.WwwOrder;
 import com.paralucent.model.WwwShop;
 
+@Service
 public class DataServiceImpl extends BaseService implements DataService {
 	
 	public DataServiceImpl() {

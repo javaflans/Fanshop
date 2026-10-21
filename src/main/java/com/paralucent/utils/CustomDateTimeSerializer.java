@@ -1,26 +1,24 @@
 package com.paralucent.utils;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
 /**
  * use case add TIMESTAMP for @ResponseBody method on Controller use @JsonSerialize(using = CustomDateTimeSerializer.class)
- * 
+ *
  * @author flans
  */
 public class CustomDateTimeSerializer
 	extends
-	JsonSerializer<Date> {
+	ValueSerializer<Date> {
 
     @Override
-    public void serialize(Date value, JsonGenerator gen, SerializerProvider arg2) throws IOException, JsonProcessingException {
+    public void serialize(Date value, JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String formattedDate = formatter.format(value);
 	gen.writeString(formattedDate);

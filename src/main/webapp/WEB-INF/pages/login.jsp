@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.kendoui.com/jsp/tags" prefix="kendo"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 
 <jsp:include page="components/header.jsp" />
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/login.css' /> " />
@@ -18,11 +17,10 @@
 					</label></td>
 					<td><form:input path="userMail" tabindex="1" class="autofocus" /></td>
 					<td rowspan="2">
-						<kendo:button name="primaryTextButton" class="k-primary submit">
-							<kendo:button-content>
+						<button id="primaryTextButton" class="k-primary submit">
 								登入
-							</kendo:button-content>
-						</kendo:button>
+						</button>
+						<script>jQuery(function(){jQuery("#primaryTextButton").kendoButton({});});</script>
 					</td>
 				</tr>
 				<tr>
@@ -32,20 +30,16 @@
 				<tr>
 					<td colspan="2">
 						<div class="reg">
-							<kendo:dialog name="registDialog" width="600" title="註冊 分享達人 帳號" 
-								closable="false" modal="true" visible= "false" >
-								<kendo:dialog-actions>
-									<kendo:dialog-action text="取消" action="registCancel" />
-									<kendo:dialog-action text="註冊" primary="true" action="registSubmit" />
-								</kendo:dialog-actions>
-							</kendo:dialog>
-							<kendo:dialog name="forgetDialog" width="600" title="密碼重設" 
-								closable="false" modal="true" visible= "false" >
-								<kendo:dialog-actions>
-									<kendo:dialog-action text="取消" action="forgetCancel" />
-									<kendo:dialog-action text="送出" primary="true" action="forgetSubmit" />
-								</kendo:dialog-actions>
-							</kendo:dialog>
+							<div id="registDialog"></div>
+							<script>jQuery(function(){jQuery("#registDialog").kendoDialog({
+								width: 600, title: "註冊 分享達人 帳號", closable: false, modal: true, visible: false,
+								actions: [{ text: "取消", action: registCancel }, { text: "註冊", primary: true, action: registSubmit }]
+							});});</script>
+							<div id="forgetDialog"></div>
+							<script>jQuery(function(){jQuery("#forgetDialog").kendoDialog({
+								width: 600, title: "密碼重設", closable: false, modal: true, visible: false,
+								actions: [{ text: "取消", action: forgetCancel }, { text: "送出", primary: true, action: forgetSubmit }]
+							});});</script>
 							<a id="regist" href="#">我要註冊</a> / <a id="forget" href="#">忘記密碼?</a>
 						</div>
 					</td>

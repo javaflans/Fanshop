@@ -1,6 +1,7 @@
 package com.paralucent.services;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +22,7 @@ public class BaseService {
 	Logger log;
 	
 	protected void genLogger() {
-		log = Logger.getLogger(BaseController.class.getClass().getName());
+		log = LoggerFactory.getLogger(BaseController.class.getClass().getName());
 	}
 
 }

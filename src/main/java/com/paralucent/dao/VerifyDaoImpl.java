@@ -1,13 +1,12 @@
 package com.paralucent.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.paralucent.model.Level;
 import com.paralucent.model.Member;
@@ -15,6 +14,7 @@ import com.paralucent.model.RoleMember;
 import com.paralucent.model.Status;
 import com.paralucent.model.VerifyAccount;
 
+@Repository
 public class VerifyDaoImpl
 	extends
 	BaseDao
@@ -29,22 +29,23 @@ public class VerifyDaoImpl
     @Override
     public Member searchByMember(Member member) {
 	Session session = sessionFactory.openSession();
-	Criteria criteria = session.createCriteria(Member.class);
 	log.info("userMail: " + member.getUserMail());
-	if (StringUtils.isNotBlank(member.getUserMail())) {
-	    criteria.add(Restrictions.eq("userMail", member.getUserMail()));
-	} else {
+	if (StringUtils.isBlank(member.getUserMail())) {
 	    return null;
 	}
 	log.info("password: " + member.getUserPassword());
-	if (StringUtils.isNotBlank(member.getUserPassword())) {
-	    criteria.add(Restrictions.eq("userPassword", member.getUserPassword()));
-	} else {
+	if (StringUtils.isBlank(member.getUserPassword())) {
 	    return null;
 	}
-	criteria.createCriteria("mailStatus").add(Restrictions.and(Restrictions.eq("stuType", "validated"), Restrictions.eq("usageTable", "member")));
-	@SuppressWarnings("unchecked")
-	List<Member> result = criteria.list();
+	List<Member> result = session.createQuery(
+		"select m from Member m join m.mailStatus s"
+			+ " where m.userMail = :userMail and m.userPassword = :userPassword"
+			+ " and s.stuType = :stuType and s.usageTable = :usageTable", Member.class)
+		.setParameter("userMail", member.getUserMail())
+		.setParameter("userPassword", member.getUserPassword())
+		.setParameter("stuType", "validated")
+		.setParameter("usageTable", "member")
+		.list();
 	log.info("login search result: " + result);
 	clearSession(session);
 	if (!result.isEmpty() && result.size() > 0) {
@@ -58,9 +59,9 @@ public class VerifyDaoImpl
 	log.info("enter insert");
 	Session session = sessionFactory.openSession();
 	Transaction trx = session.beginTransaction();
-	session.saveOrUpdate(verify);
+	VerifyAccount merged = session.merge(verify);
 	trx.commit();
-	Serializable id = session.getIdentifier(verify);
+	Object id = session.getIdentifier(merged);
 	clearSession(session);
 	return (Integer) id;
     }
@@ -69,13 +70,12 @@ public class VerifyDaoImpl
     public List<Member> queryDuplicateMember(Member member) {
 	log.info("enter queryDuplicateMember");
 	Session session = sessionFactory.openSession();
-	Criteria criteria = session.createCriteria(Member.class);
-	if (StringUtils.isNotBlank(member.getUserMail())) {
-	    criteria.add(Restrictions.eq("userMail", member.getUserMail()));
-	} else {
+	if (StringUtils.isBlank(member.getUserMail())) {
 	    return null;
 	}
-	List<Member> result = criteria.list();
+	List<Member> result = session.createQuery("from Member where userMail = :userMail", Member.class)
+		.setParameter("userMail", member.getUserMail())
+		.list();
 	log.info("Query duplicate member size: " + result.size());
 	clearSession(session);
 	return result;
@@ -86,9 +86,9 @@ public class VerifyDaoImpl
 	log.info("enter insertUpdateMember");
 	Session session = sessionFactory.openSession();
 	Transaction trx = session.beginTransaction();
-	session.saveOrUpdate(member);
+	Member merged = session.merge(member);
 	trx.commit();
-	Serializable id = session.getIdentifier(member);
+	Object id = session.getIdentifier(merged);
 	clearSession(session);
 	return (Integer) id;
     }
@@ -97,9 +97,10 @@ public class VerifyDaoImpl
     public Status searchStatus(String type, String table) {
 	log.info("enter searchStatusByCode");
 	Session session = sessionFactory.openSession();
-	Criteria criteria = session.createCriteria(Status.class);
-	criteria.add(Restrictions.and(Restrictions.eq("stuType", type), Restrictions.eq("usageTable", table)));
-	Status result = (Status) criteria.uniqueResult();
+	Status result = session.createQuery("from Status where stuType = :stuType and usageTable = :usageTable", Status.class)
+		.setParameter("stuType", type)
+		.setParameter("usageTable", table)
+		.uniqueResult();
 	clearSession(session);
 	return result;
     }
@@ -107,17 +108,27 @@ public class VerifyDaoImpl
     @Override
     public Member searchByKOL(Member memberData) {
 	Session session = sessionFactory.openSession();
-	Criteria criteria = session.createCriteria(Member.class);
+	StringBuilder hql = new StringBuilder("from Member where 1 = 1");
 	if (StringUtils.isNotBlank(memberData.getUserMail())) {
-	    criteria.add(Restrictions.eq("userMail", memberData.getUserMail()));
+	    hql.append(" and userMail = :userMail");
 	}
 	if (StringUtils.isNotBlank(memberData.getUserUuid())) {
-	    criteria.add(Restrictions.eq("userUuid", memberData.getUserUuid()));
+	    hql.append(" and userUuid = :userUuid");
 	}
 	if (StringUtils.isNotBlank(memberData.getUserName())) {
-	    criteria.add(Restrictions.eq("userName", memberData.getUserName()));
+	    hql.append(" and userName = :userName");
 	}
-	Member result = (Member) criteria.uniqueResult();
+	Query<Member> query = session.createQuery(hql.toString(), Member.class);
+	if (StringUtils.isNotBlank(memberData.getUserMail())) {
+	    query.setParameter("userMail", memberData.getUserMail());
+	}
+	if (StringUtils.isNotBlank(memberData.getUserUuid())) {
+	    query.setParameter("userUuid", memberData.getUserUuid());
+	}
+	if (StringUtils.isNotBlank(memberData.getUserName())) {
+	    query.setParameter("userName", memberData.getUserName());
+	}
+	Member result = query.uniqueResult();
 	clearSession(session);
 	return result;
     }
@@ -127,7 +138,7 @@ public class VerifyDaoImpl
 	log.info("enter insertUpdateRoleMemeber");
 	Session session = sessionFactory.openSession();
 	Transaction trx = session.beginTransaction();
-	session.saveOrUpdate(roleMember);
+	session.merge(roleMember);
 	trx.commit();
 	clearSession(session);
     }
@@ -135,12 +146,15 @@ public class VerifyDaoImpl
     @Override
     public Level searchLevel(String level) {
 	Session session = sessionFactory.openSession();
-	Criteria criteria = session.createCriteria(Level.class);
+	StringBuilder hql = new StringBuilder("from Level where 1 = 1");
 	if (StringUtils.isNotBlank(level)) {
-	    criteria.add(Restrictions.eq("level", level));
+	    hql.append(" and level = :level");
 	}
-	@SuppressWarnings("unchecked")
-	Level result = (Level) criteria.uniqueResult();
+	Query<Level> query = session.createQuery(hql.toString(), Level.class);
+	if (StringUtils.isNotBlank(level)) {
+	    query.setParameter("level", level);
+	}
+	Level result = query.uniqueResult();
 	clearSession(session);
 	return result;
     }

@@ -1,9 +1,8 @@
 package com.paralucent.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
-
-import org.hibernate.loader.custom.Return;
 
 public class BeaconUtils {
 
@@ -25,13 +24,13 @@ public class BeaconUtils {
 	if (rssi.compareTo(BigDecimal.ZERO) == 0) {
 	    return new BigDecimal("-1.0"); // if we cannot determine accuracy, return -1.
 	}
-	BigDecimal ratio = rssi.multiply(BigDecimal.ONE).divide(new BigDecimal("-56"), 5, BigDecimal.ROUND_HALF_UP);
+	BigDecimal ratio = rssi.multiply(BigDecimal.ONE).divide(new BigDecimal("-56"), 5, RoundingMode.HALF_UP);
 	if (ratio.compareTo(BigDecimal.ONE) == -1) {
-	    return new BigDecimal(Math.pow(ratio.doubleValue(), 10)).divide(BigDecimal.ONE, 3, BigDecimal.ROUND_HALF_UP);
+	    return new BigDecimal(Math.pow(ratio.doubleValue(), 10)).divide(BigDecimal.ONE, 3, RoundingMode.HALF_UP);
 	} else {
 	    BigDecimal accuracy = new BigDecimal("0.89976").multiply(new BigDecimal(Math.pow(ratio.doubleValue(), 7.7095)))
 		    .add(new BigDecimal("0.111"));
-	    return accuracy.divide(BigDecimal.ONE, 3, BigDecimal.ROUND_HALF_UP);
+	    return accuracy.divide(BigDecimal.ONE, 3, RoundingMode.HALF_UP);
 	}
     }
 }

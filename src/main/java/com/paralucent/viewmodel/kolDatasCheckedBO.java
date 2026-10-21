@@ -1,7 +1,7 @@
 package com.paralucent.viewmodel;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 public class kolDatasCheckedBO implements Serializable {

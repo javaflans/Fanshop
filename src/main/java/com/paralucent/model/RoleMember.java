@@ -1,7 +1,7 @@
 package com.paralucent.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.eclipse.jdt.internal.compiler.ast.FalseLiteral;
 
