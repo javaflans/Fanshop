@@ -1,7 +1,7 @@
 # Fanshop
 spring mvc project by Fanshop
 
-> **作品展示用途。** 2018 年獨立開發的後台系統，2026 年現代化遷移至 Spring Boot 4 / Java 25 / PostgreSQL。因含早期設計（如明文密碼比對），請勿直接用於正式環境。
+> **狀態：已封存（Archived，唯讀）。** 2018 年獨立開發的後台系統，2026 年現代化遷移至 Spring Boot 4 / Java 25 / PostgreSQL，作為作品與技術參考保存，不再維護。因含早期設計（如明文密碼比對），請勿直接用於正式環境。
 
 ## history
 - A shop background platform on 2018.
