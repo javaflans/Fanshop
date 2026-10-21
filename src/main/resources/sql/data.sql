@@ -21,3 +21,12 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO role_member (id, memberid, roleid, usercreated)
 VALUES (1, 1, 1, 'seed')
 ON CONFLICT (id, memberid) DO NOTHING;
+
+-- 登入後首頁 /overview 需要至少一筆選單；本種子會走 searchMenus 的 fallback：from Menus where name='overview'
+INSERT INTO status (id, stutype, usagetable, studesc, usercreated)
+VALUES (2, 'enabled', 'menus', '啟用的選單', 'seed')
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO menus (id, status, label, name, path, usercreated)
+VALUES (1, 2, '總覽', 'overview', 'overview', 'seed')
+ON CONFLICT (id) DO NOTHING;
